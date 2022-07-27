@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html ng-app="enes" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://kit.fontawesome.com/38af6b8e9f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../css/sweetalert.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <title>Recuperar contraseña</title>
+</head>
+
+<body ng-controller="registro">
+    <div ng-include="'../sidebar.html'"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading panel-header2">
+                        <span class="panel-title">Recuperar contraseña</span>
+                    </div>
+                    <div class="panel-body">
+                        <form ng-submit="confirmarEmailRec()" >
+                        <div class="form-group">
+                            <label class="control-label" for="matricula">Correo electrónico:<span class="obligatorio">*</span></label>
+                            <input type="email" class="form-control" id="matricula" ng-model="email" name="matricula" maxlength="50" required
+                            pattern="[a-zA-Z0-9._%+-]+@utez.edu.mx" 
+                            oninvalid="this.setCustomValidity('Ingresa un correo institucional válido')"
+                            oninput="this.setCustomValidity('')"
+                            >
+                        </div>
+                        <div class="form-group text-right">
+                            <input type="submit" class="btn btn-warning" value="Recuperar contraseña">
+                        </div>
+                        <div>
+                            <p class="text-muted text-justify"><strong>Nota 1:</strong> Recuerda que el correo de recuperación será enviado a la dirección email registrada en tu cuenta, si eres docente el email será enviado a tu correo institucional,
+                                si eres estudiante el email será enviado al correo electrónico registrado en tu ficha de admisión.</p>
+                            <p class="text-muted text-justify"><strong>Nota 2:</strong> No olvides revisar tu bandeja de correos no deseados.</p>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Modal Registrar contrasexas-->
+     <div class="modal fade" id="mdlRec" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header panel-header2">
+                    <h4 class="modal-title" ><i class="fa-solid fa-check"></i> Cambiar contraseña</h4>
+                </div>
+                <form ng-submit="confirmarContrasexas()" id="verificarCodigo">
+                    <div class="modal-body">
+                    <p class="text-center" style="font-weight: bolder;">Ingresa la nueva contraseña</p>
+                    <label>Contraseña: <span class="obligatorio">*</span></label>
+                    <input type="password" ng-model="contrasexa" class="form-control" required max="30"
+                            pattern="(?=.*\d).{8,}"
+                            oninvalid="this.setCustomValidity('La contraseña no cumple con el formato requerido, tamaño mínimo de 8 y al menos 1 número')"
+                            oninput="this.setCustomValidity('')"
+                            min="8"
+                            max="8"
+                    >
+                    <label>Confirmar Contraseña: <span class="obligatorio">*</span></label>
+                    <input type="password" ng-model="confContrasexa" class="form-control" required max="30"
+                        pattern="(?=.*\d).{8,}"
+                        oninvalid="this.setCustomValidity('La contraseña no cumple con el formato requerido, tamaño mínimo de 8 y al menos 1 número')"
+                        oninput="this.setCustomValidity('')"
+                        min="8"
+                        max="8"
+                    >
+                    <div ng-show="!valContrasexas">
+                        <span><i class="fa-solid fa-circle-exclamation" style="color: #ffa300;"></i>Las contraseñas no coinciden</span>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-gray btn-lg" ng-click="cancelarRecuperacion2()">Cancelar</button>
+                    <button type="submit" class="btn btn-green btn-lg">Verificar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <!-- Modal verificar codigo-->
+    <div class="modal fade" id="mdlCodeRec" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header panel-header2">
+                <h4 class="modal-title" ><i class="fa-solid fa-check"></i> Verificar correo</h4>
+                </div>
+            <form ng-submit="confirmarCodigoRec()" id="cambiarContrasexa">
+                <div class="modal-body">
+                <p class="text-center" style="font-weight: bolder;">Ingresa el código que se ha enviado al correo institucional ingresado <span class="obligatorio">*</span></p>
+                <input type="text" ng-model="usuario.codigoAcceso" class="form-control" required>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-gray btn-lg"  ng-click="cancelarRecuperacion()">Cancelar</button>
+                <button type="submit" class="btn btn-green btn-lg">Verificar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+     
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script src="../../js/angular.js"></script>
+    <script src="../../app.js"></script>
+    <script src="../../js/modules/mecanismosGenerales/mecanismosGenerales.js"></script>
+    <script>
+        feather.replace()
+    </script>
+    <script src="../../js/smart-table.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/sweetalert.min_1.js"></script>
+    <script src="../../js/SweetAlert.min.js"></script>
+</body>
+</html>

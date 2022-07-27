@@ -1,0 +1,108 @@
+.panel-header{
+    background-color:  #345177 !important;
+    border-color:  #345177 !important;
+    color: #fff;
+}
+
+.panel-header2, .btn-gray{
+    background-color:  #4C535D !important;
+    border-color:  #4C535D !important;
+    color: #fff;
+    font-weight: lighter;
+}
+
+.btn-yellow{
+    background-color:  #4C535D !important;
+    border-color:  #4C535D !important;
+    color: #fff;
+    font-weight: lighter;
+}
+
+.btn-green{
+    background-color:  #1CAC84 !important;
+    border-color:  #1CAC84 !important;
+    color: #fff;
+    font-weight: lighter;
+}
+
+.panel-title{
+    color: #fff;
+    font-size: 25;
+}
+
+.table-head{
+    background-color:  #345177 !important;
+    color: #fff;
+}
+
+.label-form{
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+.sublabel-form{
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.obligatorio{
+    color: red;
+    font-size: 20px;
+}
+
+.table-head-2{
+    background-color: #4C535D;
+    color: #fff;
+}
+
+.disable-seccion{
+    color: #b2b9ba;
+}
+
+.table-td{
+    border-radius: 3px;
+    box-shadow: 0px 0px 9px 0px rgb(0 0 0 / 10%);
+}
+
+.section{
+    font-size: 10px;
+    margin: 15px 10px;
+}
+
+form p, .section p{
+    font-weight: bold;
+}
+
+.form-m0{
+    margin: 0px 10px 10px;
+}
+
+.form-row{
+    margin: 0px 0px 30px;
+}
+
+.form-div{
+    margin: 15px 0px 0px 0px;
+}
+
+
+.modal {
+    text-align: center;
+    padding: 0!important;
+  }
+  
+.modal:before {
+content: '';
+display: inline-block;
+height: 100%;
+vertical-align: middle;
+margin-right: -4px; /* Adjusts for spacing */
+}
+
+.modal-dialog {
+display: inline-block;
+text-align: left;
+vertical-align: middle;
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html ng-app="enes" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://kit.fontawesome.com/38af6b8e9f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/sweetalert.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Registro de usuarios</title>
+</head>
+
+<body ng-controller="registro">
+    <div ng-include="'./plantillas/sidebar.html'"></div>
+
+    <div class="container">
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading panel-header2">
+            <span class="panel-title"><i class="fa-solid fa-user"></i> Formulario de registro</span>
+        </div>
+        <div class="panel-body">
+            <form ng-submit="confirmarEmailReg()" name="formRegistro">
+                <p><i class="fa-solid fa-clipboard-list"></i> Datos del usuario</p>
+                <hr class="form-m0">
+                <div class="row form-row">
+                    <div class="col-12 col-md-4 form-div">
+                        <label>Nombre:<span class="obligatorio">*</span></label>
+                        <input type="text" ng-model="usuario.nombre" class="form-control" required max="30">
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 form-div">
+                        <label>Primer apellido:<span class="obligatorio">*</span></label>
+                        <input type="text" ng-model="usuario.primerApellido" class="form-control" required max="30">
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 form-div">
+                        <label>Segundo apellido:<span class="obligatorio"></span></label>
+                        <input type="text" ng-model="usuario.segundoApellido" class="form-control" max="30">
+                    </div>
+                    <div class="col-6 col-sm-2 form-div">
+                        <label>Edad:<span class="obligatorio">*</span></label>
+                        <input type="number" ng-model="usuario.edad" class="form-control" required max="40" min="17">
+                    </div>
+                    <div class="col-6 col-sm-2 form-div" style="position: relative" id="generoSeleccionado">
+                        <label>Sexo:<span class="obligatorio">*</span></label>
+                        <div style="margin: auto; width: 100%;">
+                            <label class="radio-inline text-center" style="width: 40%;">
+                                <input type="radio" ng-model="usuario.sexo" value="F" name="genero" style="height: 100%;">F
+                            </label>
+                            <label class="radio-inline text-center" style="width: 40%;">
+                                <input type="radio" ng-model="usuario.sexo" value="M" name="genero" style="height: 100%;">M
+                            </label>
+                        </div>
+                        <div ng-show="!genSeleccionado" style="margin: 0; position: absolute; bottom: 0; -ms-transform: translate(100%,100%); transform: translate(0%,160%);  z-index: 1;">
+                            <span style="border: 30px; background-color:white;"><i class="fa-solid fa-circle-exclamation" style="color: #ffa300;"></i>Selecciona una opción</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-4 form-div">
+                        <label>Teléfono:<span class="obligatorio">*</span></label>
+                        <input type="text" ng-model="usuario.telefono" class="form-control" required min="10" max="10"
+                        oninvalid="this.setCustomValidity('Ingresa un número telefónico válido')"
+                        oninput="this.setCustomValidity('')"
+                        pattern="[0-9]{10}">
+                    </div>
+                    <div class="col-12 col-sm-4 form-div">
+                        <label>Correo personal:<span class="obligatorio">*</span></label>
+                        <input type="email" ng-model="usuario.correoPersonal" class="form-control" required max="50"
+                        pattern="^(?!.*(@utez.edu.mx)).*$"
+                        oninvalid="this.setCustomValidity('Ingresa un correo personal válido')"
+                        oninput="this.setCustomValidity('')">
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 form-div">
+                        <label>Correo institucional:<span class="obligatorio">*</span></label>
+                        <input type="email" ng-model="usuario.correoInstitucional" class="form-control" required max="50"
+                        pattern="[a-zA-Z0-9._%+-]+@utez.edu.mx" 
+                        oninvalid="this.setCustomValidity('Ingresa un correo institucional válido')"
+                        oninput="this.setCustomValidity('')">
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 form-div">
+                        <label>Contraseña:<span class="obligatorio">*</span></label>
+                        <input type="password" ng-model="usuario.contrasexa" class="form-control" required max="30"
+                        pattern="(?=.*\d).{8,}"
+                        oninvalid="this.setCustomValidity('La contraseña no cumple con el formato requerido, tamaño mínimo de 8 y al menos 1 número')"
+                        oninput="this.setCustomValidity('')"
+                        min="8"
+                        max="8"
+                        >
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 form-div">
+                        <label>Tipo de usuario:<span class="obligatorio">*</span></label>
+                        <select  ng-options="opt as opt.label for opt in optionsUser track by opt.id" ng-model="usuario.tipo" class="form-control" required>
+                            <option value="" disabled>Selecciona...</option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-show="usuario.tipo.id == '1'">
+                    <p><i class="fa-solid fa-graduation-cap"></i> Datos académicos</p>
+                    <hr class="form-m0">
+                    <div class="row form-row">
+                        <div class="col-12 col-sm-6 col-md-4 form-div">
+                            <label>Division:<span class="obligatorio">*</span></label>
+                            <select ng-options="div as div.label for div in divisiones track by div.id" ng-model="usuario.division" class="form-control" 
+                            ng-required="usuario.tipo.id == '1'" ng-change="buscarCarrerasDis()">
+                                <option value="" disabled>Selecciona...</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 form-div">
+                            <label>Carrera:<span class="obligatorio">*</span></label>
+                            <select ng-disabled="!(usuario.division != undefined)" ng-options="carrera as carrera.label for carrera in carrerasDis track by carrera.id" 
+                            ng-model="usuario.division.carrera" class="form-control" ng-required="usuario.tipo.id == '1'" ng-change="buscarGruposDis()">
+                                <option value="" disabled>Selecciona...</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-2 form-div">
+                            <label>Grupo:<span class="obligatorio">*</span></label>
+                            <select ng-disabled="!(usuario.division.carrera != undefined)" ng-options="grupo as grupo.label for grupo in gruposDis track by grupo.id" 
+                            ng-model="usuario.division.carrera.grupo" class="form-control" ng-required="usuario.tipo.id == '1'" ng-change="buscarGradosDis()">
+                                <option value="" disabled>Selecciona...</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-2 form-div">
+                            <label>Grado:<span class="obligatorio">*</span></label>
+                            <select ng-disabled="!(usuario.division.carrera.grupo != undefined)"  ng-options="grado for grado in gradosDis" 
+                            ng-model="usuario.division.carrera.grupo.grado" class="form-control" ng-required="usuario.tipo.id == '1'">
+                                <option value="" disabled>Selecciona...</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 form-div">
+                            <label>Generación de ingreso:<span class="obligatorio">*</span></label>
+                            <select ng-options="gen as gen.label for gen in generaciones track by gen.id" ng-model="usuario.generacionIngreso" class="form-control"
+                            ng-required="usuario.tipo.id == '1'">
+                                <option value="" disabled>Selecciona...</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 form-div">
+                            <label>Generación de egreso:<span class="obligatorio"></span></label>
+                            <select ng-options="gen as gen.label for gen in generaciones track by gen.id"  ng-model="usuario.generacionIngreso" class="form-control" disabled >
+                                <option value="" disabled></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right form-row">
+                    <button type="button" class="btn btn-gray btn-lg" >
+                        <i class="fa-solid fa-angle-left"></i> Regresar
+                    </button>
+                    <button type="submit" class="btn btn-green btn-lg">
+                        <i class="fa-solid fa-plus"></i> Registrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="mdlCodeReg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header panel-header2">
+                    <h4 class="modal-title" ><i class="fa-solid fa-check"></i> Verificar correo</h4>
+                    </div>
+                <form ng-submit="confirmarCodigoReg()">
+                    <div class="modal-body">
+                    <p class="text-center" style="font-weight: bolder;">Ingresa el código que se ha enviado al correo institucional ingresado</p>
+                    <input type="text" ng-model="usuario.codigoAcceso" class="form-control" required>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-gray btn-lg" ng-click="cancelarRegistro()">Cancelar</button>
+                    <button type="submit" class="btn btn-green btn-lg">Verificar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script src="./js/angular.js"></script>
+    <script src="./app.js"></script>
+    <script src="./js/modules/mecanismosGenerales/mecanismosGenerales.js"></script>
+    <script>
+        feather.replace()
+    </script>
+    <script src="./js/smart-table.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/sweetalert.min_1.js"></script>
+    <script src="./js/SweetAlert.min.js"></script>
+</body>
+</html>

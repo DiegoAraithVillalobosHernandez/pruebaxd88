@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html ng-app="enes" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://kit.fontawesome.com/38af6b8e9f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../css/sweetalert.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/styles.css">
+     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <title>Generar reportes</title>
+</head>
+
+<body ng-controller="reporte">
+    <div ng-include="'../sidebar.html'"></div>
+
+    <div class="container-fluid">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading"> ENCUESTA DE SATISFACCIÓN DE ESTUDIANTES EN ESTADÍA</div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item active">
+                            <a href="#reporteGeneral" role="tab" data-toggle="tab">
+                                General
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#reporteAsesores" role="tab" data-toggle="tab">
+                                Asesores
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-pane active" id="reporteGeneral">
+                        <div class="row">
+                            <div class="col-md-4 form-inline" style="margin-bottom: 20px; margin-top: 20px;">
+                                <span style="font-weight: bolder;">Filtrar: </span>
+                                <select class="form-control" ng-model="division" required>
+                                    <option selected value="" disabled>Selecciona...</option>
+                                    <option value="1" ng-click="reporteGeneral()">General</option>
+                                    <option value="2" ng-click="">Por divisiones y carreras académicas</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <div class="row" id="graficas">
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="tab-pane" id="reporteAsesores">
+                        <div class="row">
+                            <div class="col-md-4 form-inline" style="margin-bottom: 20px; margin-top: 20px;">
+                                <span style="font-weight: bolder;">Filtrar: </span>
+                                <select class="form-control" ng-model="division" required>
+                                    <option selected value="">Selecciona...</option>
+                                    <option ng-repeat="division in divisiones" value="{{division.id}}">
+                                        {{division.nombre}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style=" margin-bottom: 20px;">
+                                <span style="font-weight: bolder;">Asesor:</span><span> Miguel Moreno</span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        ¿En general la atención y/o orientación de tu asesora / asesor
+                                        universitario, te pareció?
+                                    </div>
+                                    <div class="panel-body">
+                                        <canvas id="myChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Tu asesora o asesor universitario te presentó en la empresa o institución al
+                                        inicio de tu estadía (vía correo electrónico)?
+                                    </div>
+                                    <div class="panel-body">
+                                        <canvas id="myChart2"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        ¿Tu asesora / asesor universitario te informó y orientó acerca del proyecto,
+                                        los
+                                        formatos y trámites que debías seguir?
+                                    </div>
+                                    <div class="panel-body">
+                                        <canvas id="ctx"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          
+            </div>
+        
+        </div>
+    </div>
+        
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script src="../../js/angular.js"></script>
+    <script src="../../app.js"></script>
+    <script src="../../js/modules/reporte/reporte.js"></script>
+    <script>
+        feather.replace()
+    </script>
+    <script src="../../js/smart-table.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/sweetalert.min_1.js"></script>
+    <script src="../../js/SweetAlert.min.js"></script>
+    
+</body>
+</html>
+
