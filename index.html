@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/styles.css">
     <title>Registro de usuarios</title>
+
 </head>
 
 <body ng-controller="registro">
@@ -30,7 +31,7 @@
                 <hr class="form-m0">
                 <div class="row form-row">
                     <div class="col-12 col-md-4 form-div">
-                        <label>Nombre:<span class="obligatorio">*</span></label>
+                        <label>Nombre(s):<span class="obligatorio">*</span></label>
                         <input type="text" ng-model="usuario.nombre" class="form-control" required max="30">
                     </div>
                     <div class="col-12 col-sm-6 col-md-4 form-div">
@@ -42,8 +43,8 @@
                         <input type="text" ng-model="usuario.segundoApellido" class="form-control" max="30">
                     </div>
                     <div class="col-6 col-sm-2 form-div">
-                        <label>Edad:<span class="obligatorio">*</span></label>
-                        <input type="number" ng-model="usuario.edad" class="form-control" required max="40" min="17">
+                        <label>Fecha nacimiento:<span class="obligatorio">*</span></label>
+                        <input type="date" ng-model="usuario.fechaNacimiento" class="form-control" required >
                     </div>
                     <div class="col-6 col-sm-2 form-div" style="position: relative" id="generoSeleccionado">
                         <label>Sexo:<span class="obligatorio">*</span></label>
@@ -83,6 +84,16 @@
                     <div class="col-12 col-sm-6 col-md-4 form-div">
                         <label>Contraseña:<span class="obligatorio">*</span></label>
                         <input type="password" ng-model="usuario.contrasexa" class="form-control" required max="30"
+                        pattern="(?=.*\d).{8,}"
+                        oninvalid="this.setCustomValidity('La contraseña no cumple con el formato requerido, tamaño mínimo de 8 y al menos 1 número')"
+                        oninput="this.setCustomValidity('')"
+                        min="8"
+                        max="8"
+                        >
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 form-div">
+                        <label>Confirmar Contraseña:<span class="obligatorio">*</span></label>
+                        <input type="password" ng-model="confirmarContrasexa" class="form-control" required max="30"
                         pattern="(?=.*\d).{8,}"
                         oninvalid="this.setCustomValidity('La contraseña no cumple con el formato requerido, tamaño mínimo de 8 y al menos 1 número')"
                         oninput="this.setCustomValidity('')"
@@ -148,9 +159,13 @@
                     <button type="button" class="btn btn-gray btn-lg" >
                         <i class="fa-solid fa-angle-left"></i> Regresar
                     </button>
-                    <button type="submit" class="btn btn-green btn-lg">
+        <!-- 
+                    ng-disabled="formRegistro.$invalid" -->
+
+                    <button type="submit" class="btn btn-green btn-lg"  >
                         <i class="fa-solid fa-plus"></i> Registrar
                     </button>
+
                 </div>
             </form>
         </div>
